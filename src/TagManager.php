@@ -10,6 +10,7 @@
 
 namespace boboldehampsink\tagmanager;
 
+use boboldehampsink\tagmanager\elements\TagManagerElementType;
 
 use Craft;
 use craft\base\Plugin;
@@ -73,15 +74,7 @@ class TagManager extends Plugin
             Elements::class,
             Elements::EVENT_REGISTER_ELEMENT_TYPES,
             function (RegisterComponentTypesEvent $event) {
-            }
-        );
-
-        Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_INSTALL_PLUGIN,
-            function (PluginEvent $event) {
-                if ($event->plugin === $this) {
-                }
+                $event->types[] = TagManagerElementType::class;
             }
         );
 
@@ -94,8 +87,4 @@ class TagManager extends Plugin
             __METHOD__
         );
     }
-
-    // Protected Methods
-    // =========================================================================
-
 }
