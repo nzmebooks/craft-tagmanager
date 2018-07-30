@@ -61,17 +61,11 @@ class TagManager extends Plugin
 
         Event::on(
             UrlManager::class,
-            UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-            function (RegisterUrlRulesEvent $event) {
-                $event->rules['siteActionTrigger1'] = 'tagmanager/default';
-            }
-        );
-
-        Event::on(
-            UrlManager::class,
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['cpActionTrigger1'] = 'tagmanager/default/do-something';
+                $event->rules['tagmanager'] = 'tagmanager/default/tag-index';
+                $event->rules['tagmanager/<groupHandle:[^\/]+>/new'] = 'tagmanager/default/edit-tag-by-group-handle';
+                $event->rules['tagmanager/<groupHandle:[^\/]+>/<tagId:[^\/]+>/new'] = 'tagmanager/default/edit-tag-by-tag-id';
             }
         );
 

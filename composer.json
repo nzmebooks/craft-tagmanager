@@ -18,7 +18,8 @@
     "authors": [
         {
             "name": "Bob Olde Hampsink",
-            "homepage": "https://github.com/boboldehampsink"
+            "homepage": "https://github.com/boboldehampsink",
+            "email": "b.oldehampsink@itmundi.nl"
         }
     ],
     "require": {

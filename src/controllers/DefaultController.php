@@ -1,12 +1,4 @@
 <?php
-/**
- * TagManager plugin for Craft CMS 3.x
- *
- * Plugin that allows you to edit and delete tags.
- *
- * @link      https://github.com/boboldehampsink
- * @copyright Copyright (c) 2018 Bob Olde Hampsink
- */
 
 namespace boboldehampsink\tagmanager\controllers;
 
@@ -14,11 +6,18 @@ use boboldehampsink\tagmanager\TagManager;
 
 use Craft;
 use craft\web\Controller;
+use craft\elements\Tag;
 
 /**
- * @author    Bob Olde Hampsink
- * @package   TagManager
- * @since     2.0.0
+ * Tag Manager Controller.
+ *
+ * Extends the default tag management options so we can edit and delete.
+ *
+ * @author    Bob Olde Hampsink <b.oldehampsink@itmundi.nl>
+ * @copyright Copyright (c) 2015, Bob Olde Hampsink
+ * @license   http://buildwithcraft.com/license Craft License Agreement
+ *
+ * @link      http://github.com/boboldehampsink
  */
 class DefaultController extends Controller
 {
@@ -31,28 +30,156 @@ class DefaultController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected $allowAnonymous = ['index', 'do-something'];
+    // protected $allowAnonymous = ['index', 'do-something'];
 
     // Public Methods
     // =========================================================================
 
     /**
-     * @return mixed
+     * Tag index.
      */
-    public function actionIndex()
+    public function actionTagIndex()
     {
-        $result = 'Welcome to the DefaultController actionIndex() method';
-
-        return $result;
+        $variables['groups'] = Craft::$app->getTags()->getAllTagGroups();
+        $this->renderTemplate('tagmanager/_index', $variables);
     }
 
     /**
-     * @return mixed
+     * Edit a tag using a supplied group handle.
+     *
+     * @param string $groupHandle
      */
-    public function actionDoSomething()
+    public function actionEditTagByGroupHandle($groupHandle)
     {
-        $result = 'Welcome to the DefaultController actionDoSomething() method';
+        $this->editTag(['groupHandle' => $groupHandle]);
+    }
 
-        return $result;
+    /**
+     * Edit a tag using a supplied group handle.
+     *
+     * @param string $groupHandle
+     * @param string $groupId
+     */
+    public function actionEditTagByTagID($groupHandle, $tagId)
+    {
+        $this->editTag([
+            'groupHandle' => $groupHandle,
+            'tagId' => $tagId,
+        ]);
+    }
+
+    /**
+     * Edit a tag.
+     *
+     * @param array $variables
+     *
+     * @throws HttpException
+     */
+    public function editTag(array $variables = array())
+    {
+        if (!empty($variables['groupHandle'])) {
+            $variables['group'] = Craft::$app->getTags()->getTagGroupByHandle($variables['groupHandle']);
+        } elseif (!empty($variables['groupId'])) {
+            $variables['group'] = Craft::$app->getTags()->getTagGroupById($variables['groupId']);
+        }
+        if (empty($variables['group'])) {
+            throw new HttpException(404);
+        }
+        // Now let's set up the actual tag
+        if (empty($variables['tag'])) {
+            if (!empty($variables['tagId'])) {
+                $siteId = Craft::$app->getSites()->getPrimarySite()->id;
+                $variables['tag'] = Craft::$app->getTags()->getTagById($variables['tagId'], $siteId);
+                if (!$variables['tag']) {
+                    throw new HttpException(404);
+                }
+            } else {
+                $variables['tag'] = new TagModel();
+                $variables['tag']->groupId = $variables['group']->id;
+            }
+        }
+        // Tabs
+        $variables['tabs'] = array();
+        foreach ($variables['group']->getFieldLayout()->getTabs() as $index => $tab) {
+            // Do any of the fields on this tab have errors?
+            $hasErrors = false;
+            if ($variables['tag']->hasErrors()) {
+                foreach ($tab->getFields() as $field) {
+                    if ($variables['tag']->getErrors($field->getField()->handle)) {
+                        $hasErrors = true;
+                        break;
+                    }
+                }
+            }
+            $variables['tabs'][] = array(
+                'label' => $tab->name,
+                'url' => '#tab' . ($index + 1),
+                'class' => ($hasErrors ? 'error' : null),
+            );
+        }
+        if (!$variables['tag']->id) {
+            $variables['title'] = Craft::t('tagmanager', 'Create a new tag');
+        } else {
+            $variables['title'] = $variables['tag']->title;
+        }
+        // Breadcrumbs
+        $variables['crumbs'] = array(
+            array('label' => Craft::t('tagmanager', 'Tag Manager'), 'url' => UrlHelper::url('tagmanager')),
+            array('label' => $variables['group']->name, 'url' => UrlHelper::url('tagmanager')),
+        );
+        // Set the "Continue Editing" URL
+        $variables['continueEditingUrl'] = 'tagmanager/' . $variables['group']->handle . '/{id}';
+        // Render the template!
+        $this->renderTemplate('tagmanager/_edit', $variables);
+    }
+    /**
+     * Saves a tag.
+     */
+    public function actionSaveTag()
+    {
+        $this->requirePostRequest();
+        $request = Craft::$app->getRequest();
+
+        $tagId = $request->getBodyParam('tagId');
+        if ($tagId) {
+            $siteId = Craft::$app->getSites()->getPrimarySite()->id;
+            $tag = Craft::$app->getTags()->getTagById($tagId, $siteId);
+            if (!$tag) {
+                throw new Exception(Craft::t('tagmanager', 'No tag exists with the ID “{id}”', array('id' => $tagId)));
+            }
+        } else {
+            $tag = new Tag();
+        }
+        // Set the tag attributes, defaulting to the existing values for whatever is missing from the post data
+        $tag->groupId = $request->getBodyParam('groupId', $tag->groupId);
+        $tag->title = $request->getBodyParam('title', $tag->title);
+        // TODO: figure out what, if anything, we should do about the following line
+        // $tag->setContentFromPost('fields');
+        if (Craft::$app->getElements()->saveElement($tag)) {
+            Craft::$app->getSession()->setNotice(Craft::t('tagmanager', 'Tag saved.'));
+            $this->redirectToPostedUrl($tag);
+        } else {
+            Craft::$app->getSession()->setError(Craft::t('tagmanager', 'Couldn’t save tag.'));
+            // Send the tag back to the template
+            Craft::$app->getUrlManager()->setRouteParams([
+                'tag' => $tag,
+            ]);
+        }
+    }
+    /**
+     * Deletes a tag.
+     */
+    public function actionDeleteTag()
+    {
+        $this->requirePostRequest();
+        $request = Craft::$app->getRequest();
+
+        $tagId = $request->getBodyParam('tagId');
+        if (Craft::$app->getElements()->deleteElementById($tagId)) {
+            Craft::$app->getSession()->setNotice(Craft::t('tagmanager', 'Tag deleted.'));
+            $this->redirectToPostedUrl();
+        } else {
+            Craft::$app->getSession()->setError(Craft::t('tagmanager', 'Couldn’t delete tag.'));
+        }
     }
 }

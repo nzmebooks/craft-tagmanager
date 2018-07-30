@@ -2,6 +2,12 @@
 
 Plugin that allows you to edit and delete tags.
 
+Features:
+ - Create tags (with custom fields)
+ - Edit tags (with custom fields)
+ - Delete tags
+ - Has hook to modify element index html, table attributes and sortable attributes
+
 ![Screenshot](resources/img/plugin-logo.png)
 
 ## Requirements
@@ -21,23 +27,5 @@ To install the plugin, follow these instructions.
         composer require boboldehampsink/tag-manager
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for TagManager.
-
-## TagManager Overview
-
--Insert text here-
-
-## Configuring TagManager
-
--Insert text here-
-
-## Using TagManager
-
--Insert text here-
-
-## TagManager Roadmap
-
-Some things to do, and ideas for potential features:
-
-* Release it
 
 Brought to you by [Bob Olde Hampsink](https://github.com/boboldehampsink)

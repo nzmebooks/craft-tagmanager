@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## 2.0.0 - 2018-07-29
-### Added
-- Initial release
+Changelog
+=================
+###0.2.0###
+ - Added delete and edit element actions (thanks to joshangell)
+ - Added hooks to allow plugins to modify the element index html,
+   table attributes and sortable attributes (thanks to joshangell)
+ - Only show delete button on existing tags (thanks to joshangell)
+ - Removed locale support in the CP edit url (temporarily)
+
+###0.1.0###
+ - Initial push to GitHub
