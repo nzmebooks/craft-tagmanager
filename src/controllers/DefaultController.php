@@ -3,10 +3,12 @@
 namespace boboldehampsink\tagmanager\controllers;
 
 use boboldehampsink\tagmanager\TagManager;
+use boboldehampsink\tagmanager\models\TagModel;
 
 use Craft;
 use craft\web\Controller;
 use craft\elements\Tag;
+use craft\helpers\UrlHelper;
 
 /**
  * Tag Manager Controller.
@@ -60,7 +62,7 @@ class DefaultController extends Controller
      * @param string $groupHandle
      * @param string $groupId
      */
-    public function actionEditTagByTagID($groupHandle, $tagId)
+    public function actionEditTagByTagId($groupHandle, $tagId)
     {
         $this->editTag([
             'groupHandle' => $groupHandle,
@@ -89,7 +91,7 @@ class DefaultController extends Controller
         if (empty($variables['tag'])) {
             if (!empty($variables['tagId'])) {
                 $siteId = Craft::$app->getSites()->getPrimarySite()->id;
-                $variables['tag'] = Craft::$app->getTags()->getTagById($variables['tagId'], $siteId);
+                $variables['tag'] = Craft::$app->getTags()->getTagById((int) $variables['tagId'], $siteId);
                 if (!$variables['tag']) {
                     throw new HttpException(404);
                 }
@@ -132,6 +134,7 @@ class DefaultController extends Controller
         // Render the template!
         $this->renderTemplate('tagmanager/_edit', $variables);
     }
+
     /**
      * Saves a tag.
      */
@@ -165,7 +168,14 @@ class DefaultController extends Controller
                 'tag' => $tag,
             ]);
         }
+
+        if ($request->getBodyParam('redirect')) {
+            return $this->redirect($request->getBodyParam('redirect'));
+        } else {
+            return $this->redirectToPostedUrl();
+        }
     }
+
     /**
      * Deletes a tag.
      */
@@ -177,7 +187,12 @@ class DefaultController extends Controller
         $tagId = $request->getBodyParam('tagId');
         if (Craft::$app->getElements()->deleteElementById($tagId)) {
             Craft::$app->getSession()->setNotice(Craft::t('tagmanager', 'Tag deleted.'));
-            $this->redirectToPostedUrl();
+
+            if ($request->getBodyParam('redirect')) {
+                return $this->redirect($request->getBodyParam('redirect'));
+            } else {
+                return $this->redirectToPostedUrl();
+            }
         } else {
             Craft::$app->getSession()->setError(Craft::t('tagmanager', 'Couldn’t delete tag.'));
         }

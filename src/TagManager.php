@@ -60,13 +60,24 @@ class TagManager extends Plugin
         parent::init();
         self::$plugin = $this;
 
+        // register the actions
+        // Event::on(
+        //     UrlManager::class,
+        //     UrlManager::EVENT_REGISTER_SITE_URL_RULES,
+        //     function (RegisterUrlRulesEvent $event) {
+        //         $event->rules['tagmanager/save-tag'] = 'tagmanager/default/save-tag';
+        //     }
+        // );
+
         Event::on(
             UrlManager::class,
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
                 $event->rules['tagmanager'] = 'tagmanager/default/tag-index';
+                // $event->rules['tagmanager/default/1033'] = 'tagmanager/default/edit-tag-by-tag-id';
+                $event->rules['tagmanager/<groupHandle:[^\/]+>/<tagId:\d+>'] = 'tagmanager/default/edit-tag-by-tag-id';
                 $event->rules['tagmanager/<groupHandle:[^\/]+>/new'] = 'tagmanager/default/edit-tag-by-group-handle';
-                $event->rules['tagmanager/<groupHandle:[^\/]+>/<tagId:[^\/]+>/new'] = 'tagmanager/default/edit-tag-by-tag-id';
+                $event->rules['tagmanager/<groupHandle:[^\/]+>/<tagId:\d+>/new'] = 'tagmanager/default/edit-tag-by-tag-id';
             }
         );
 

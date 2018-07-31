@@ -14,15 +14,17 @@ use boboldehampsink\tagmanager\TagManager;
 
 use Craft;
 use craft\elements\Tag;
+use craft\elements\db\TagQuery;
 use craft\elements\db\ElementQuery;
 use craft\elements\db\ElementQueryInterface;
+use craft\helpers\UrlHelper;
 
 /**
  * @author    Bob Olde Hampsink
  * @package   TagManager
  * @since     2.0.0
  */
-class TagManagerElementType extends Tag
+class TagManagerElement extends Tag
 {
     // Public Methods
     // =========================================================================
@@ -37,21 +39,14 @@ class TagManagerElementType extends Tag
         $group = $this->getGroup();
 
         if ($group) {
-            return Craft::$app->getUrlManager()::getCpUrl('tagmanager/' . $group->handle . '/' . $this->id);
+            return UrlHelper::cpUrl('tagmanager/' . $group->handle . '/' . $this->id);
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getFieldLayout()
+    protected static function defineTableAttributes() : array
     {
-        $tagGroup = $this->getGroup();
-
-        if ($tagGroup) {
-            return $tagGroup->getFieldLayout();
-        }
-
-        return null;
+        return [
+            'title' => \Craft::t('app', 'Title'),
+        ];
     }
 }
