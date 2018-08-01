@@ -1,4 +1,4 @@
-# TagManager plugin for Craft CMS 3.x
+# Craft-TagManager plugin for Craft CMS 3.x
 
 *Based on the now-deprecated Craft 2 [tagamanger plugin](https://github.com/boboldehampsink/tagmanager) by Bob Olde Hampsink.*
 

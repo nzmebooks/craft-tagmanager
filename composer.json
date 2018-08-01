@@ -11,8 +11,8 @@
         "tagmanager"
     ],
     "support": {
-        "docs": "https://github.com/nzmebooks/tagmanager/blob/master/README.md",
-        "issues": "https://github.com/nzmebooks/tagmanager/issues"
+        "docs": "https://github.com/nzmebooks/craft-tagmanager/blob/master/README.md",
+        "issues": "https://github.com/nzmebooks/craft-tagmanager/issues"
     },
     "license": "MIT",
     "authors": [
@@ -35,7 +35,7 @@
         "handle": "tagmanager",
         "hasCpSettings": false,
         "hasCpSection": true,
-        "changelogUrl": "https://raw.githubusercontent.com/nzmebooks/tagmanager/master/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/nzmebooks/craft-tagmanager/master/CHANGELOG.md",
         "class": "nzmebooks\\tagmanager\\TagManager"
     }
 }
