@@ -11,6 +11,8 @@
 namespace boboldehampsink\tagmanager;
 
 use boboldehampsink\tagmanager\elements\TagManagerElementType;
+use boboldehampsink\tagmanager\services\TagManagerService;
+use boboldehampsink\tagmanager\variables\TagManagerVariable;
 
 use Craft;
 use craft\base\Plugin;
@@ -20,6 +22,7 @@ use craft\web\UrlManager;
 use craft\services\Elements;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
+use craft\web\twig\variables\CraftVariable;
 
 use yii\base\Event;
 
@@ -60,6 +63,10 @@ class TagManager extends Plugin
         parent::init();
         self::$plugin = $this;
 
+        $this->setComponents([
+            'tagManagerService' => TagManagerService::class,
+        ]);
+
         // register the actions
         // Event::on(
         //     UrlManager::class,
@@ -73,11 +80,22 @@ class TagManager extends Plugin
             UrlManager::class,
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['tagmanager'] = 'tagmanager/default/tag-index';
-                // $event->rules['tagmanager/default/1033'] = 'tagmanager/default/edit-tag-by-tag-id';
+                $event->rules['tagmanager'] = 'tagmanager/default/index';
+                $event->rules['tagmanager/tags'] = 'tagmanager/default/tags';
                 $event->rules['tagmanager/<groupHandle:[^\/]+>/<tagId:\d+>'] = 'tagmanager/default/edit-tag-by-tag-id';
                 $event->rules['tagmanager/<groupHandle:[^\/]+>/new'] = 'tagmanager/default/edit-tag-by-group-handle';
                 $event->rules['tagmanager/<groupHandle:[^\/]+>/<tagId:\d+>/new'] = 'tagmanager/default/edit-tag-by-tag-id';
+            }
+        );
+
+        // register our variables
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('tagManager', TagManagerVariable::class);
             }
         );
 
@@ -97,5 +115,16 @@ class TagManager extends Plugin
             ),
             __METHOD__
         );
+    }
+
+    /**
+     * Returns the user-facing name of the plugin, which can override the name
+     * in composer.json
+     *
+     * @return string
+     */
+    public function getPluginName()
+    {
+        return Craft::t('tagmanager', 'Tag Manager');
     }
 }

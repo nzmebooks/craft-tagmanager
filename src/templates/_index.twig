@@ -1,24 +1,43 @@
-{% extends "_layouts/elementindex" %}
-{% set title = "Tag Manager"|t %}
-{% set elementType = 'boboldehampsink\\tagmanager\\elements\\TagManagerElement' %}
+{% extends "_layouts/cp" %}
 
-{% block sidebar %}
-    {% if groups|length %}
-        <div class="buttons">
-            {% if groups|length > 1 %}
-                <div class="btn submit menubtn add icon">{{ "New Tag"|t }}</div>
-                <div class="menu">
-                    <ul>
-                        {% for group in groups %}
-                            <li><a href="{{ url('tagmanager/'~group.handle~'/new') }}">{{ group.name|t }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% else %}
-                <a class="btn submit add icon" href="{{ url('tagmanager/'~groups[0].handle~'/new') }}">{{ "New Tag"|t }}</a>
-            {% endif %}
-        </div>
-    {% endif %}
+{% set title = craft.tagManager.getPluginName %}
+{% set tags = craft.tagManager.getTags %}
 
-    {{ parent() }}
-{% endblock %}
+{% set content %}
+    <h2 class="left">Tags currently in use</h2>
+    <a class="right" href="/admin/tagmanager/tags">List tags</a>
+    <div>
+        {% if tags | length %}
+            <table id="test" class="data fullwidth">
+                <thead>
+                    <th>Group</th>
+                    <th>Title</th>
+                    <th>Entries</th>
+                </thead>
+                <tbody>
+                    {% for tag in tags %}
+                    <tr>
+                        <td>{{ tag.groupName }}</td>
+                        <td><a href="/admin/tagmanager/{{ tag.groupHandle }}/{{ tag.id }}">{{ tag.title }}</a></td>
+                        <td>
+                            {% for entry in tag.entries %}
+                                <p><a href="/admin/entries/{{ entry.entrySection }}/{{ entry.entryId }}">{{ entry.entryTitle }}</a></p>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>It looks like there aren't any tags in use yet.</p>
+        {% endif %}
+    </div>
+{% endset %}
+
+{% set js %}
+    new Craft.AdminTable({
+        tableSelector: '#test',
+        noObjectsSelector: '#noresult',
+        deleteAction: ''
+    });
+{% endset %}

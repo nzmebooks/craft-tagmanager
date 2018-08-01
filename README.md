@@ -1,11 +1,12 @@
 # TagManager plugin for Craft CMS 3.x
 
-Plugin that allows you to edit and delete tags.
+Plugin that allows you to view tag usage, and maintain tags.
 
 Features:
  - Create tags (with custom fields)
  - Edit tags (with custom fields)
  - Delete tags
+ - Display a list of active tags, along with their related entries
  - Has hook to modify element index html, table attributes and sortable attributes
 
 ![Screenshot](resources/img/plugin-logo.png)

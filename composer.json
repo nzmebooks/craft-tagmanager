@@ -34,7 +34,7 @@
         "name": "Tag Manager",
         "handle": "tagmanager",
         "hasCpSettings": false,
-        "hasCpSection": false,
+        "hasCpSection": true,
         "changelogUrl": "https://raw.githubusercontent.com/boboldehampsink/tagmanager/master/CHANGELOG.md",
         "class": "boboldehampsink\\tagmanager\\TagManager"
     }

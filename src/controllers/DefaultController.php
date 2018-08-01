@@ -1,15 +1,5 @@
 <?php
 
-namespace boboldehampsink\tagmanager\controllers;
-
-use boboldehampsink\tagmanager\TagManager;
-use boboldehampsink\tagmanager\models\TagModel;
-
-use Craft;
-use craft\web\Controller;
-use craft\elements\Tag;
-use craft\helpers\UrlHelper;
-
 /**
  * Tag Manager Controller.
  *
@@ -21,6 +11,17 @@ use craft\helpers\UrlHelper;
  *
  * @link      http://github.com/boboldehampsink
  */
+
+ namespace boboldehampsink\tagmanager\controllers;
+
+use boboldehampsink\tagmanager\TagManager;
+use boboldehampsink\tagmanager\models\TagModel;
+
+use Craft;
+use craft\web\Controller;
+use craft\elements\Tag;
+use craft\helpers\UrlHelper;
+
 class DefaultController extends Controller
 {
 
@@ -38,12 +39,20 @@ class DefaultController extends Controller
     // =========================================================================
 
     /**
+     * Index.
+     */
+    public function actionIndex()
+    {
+        $this->renderTemplate('tagmanager/_index');
+    }
+
+    /**
      * Tag index.
      */
-    public function actionTagIndex()
+    public function actionTags()
     {
         $variables['groups'] = Craft::$app->getTags()->getAllTagGroups();
-        $this->renderTemplate('tagmanager/_index', $variables);
+        $this->renderTemplate('tagmanager/_tags', $variables);
     }
 
     /**
