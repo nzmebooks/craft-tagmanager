@@ -1,5 +1,7 @@
 # TagManager plugin for Craft CMS 3.x
 
+*Based on the now-deprecated Craft 2 [tagamanger plugin](https://github.com/boboldehampsink/tagmanager) by Bob Olde Hampsink.*
+
 Plugin that allows you to view tag usage, and maintain tags.
 
 Features:
@@ -25,8 +27,8 @@ To install the plugin, follow these instructions.
 
 2. Then tell Composer to load the plugin:
 
-        composer require boboldehampsink/tag-manager
+        composer require nzmebooks/tag-manager
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for TagManager.
 
-Brought to you by [Bob Olde Hampsink](https://github.com/boboldehampsink)
+Brought to you by [Jason Darwin](https://github.com/nzmebooks)

@@ -5,17 +5,17 @@
  *
  * Extends the default tag management options so we can edit and delete.
  *
- * @author    Bob Olde Hampsink <b.oldehampsink@itmundi.nl>
- * @copyright Copyright (c) 2015, Bob Olde Hampsink
+ * @author    Jason Darwin <b.oldehampsink@itmundi.nl>
+ * @copyright Copyright (c) 2015, Jason Darwin
  * @license   http://buildwithcraft.com/license Craft License Agreement
  *
- * @link      http://github.com/boboldehampsink
+ * @link      http://github.com/nzmebooks
  */
 
- namespace boboldehampsink\tagmanager\controllers;
+ namespace nzmebooks\tagmanager\controllers;
 
-use boboldehampsink\tagmanager\TagManager;
-use boboldehampsink\tagmanager\models\TagModel;
+use nzmebooks\tagmanager\TagManager;
+use nzmebooks\tagmanager\models\TagModel;
 
 use Craft;
 use craft\web\Controller;

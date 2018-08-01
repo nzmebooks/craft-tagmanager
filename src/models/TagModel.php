@@ -5,12 +5,12 @@
  *
  * Plugin that allows you to edit and delete tags.
  *
- * @link      https://github.com/boboldehampsink
- * @copyright Copyright (c) 2018 Bob Olde Hampsink
+ * @link      https://github.com/nzmebooks
+ * @copyright Copyright (c) 2018 Jason Darwin
  */
-namespace boboldehampsink\tagmanager\models;
+namespace nzmebooks\tagmanager\models;
 
-use boboldehampsink\tagmanager\TagManager;
+use nzmebooks\tagmanager\TagManager;
 
 use Craft;
 use craft\base\Model;

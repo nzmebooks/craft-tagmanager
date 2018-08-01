@@ -4,15 +4,15 @@
  *
  * Plugin that allows you to edit and delete tags.
  *
- * @link      https://github.com/boboldehampsink
- * @copyright Copyright (c) 2018 Bob Olde Hampsink
+ * @link      https://github.com/nzmebooks
+ * @copyright Copyright (c) 2018 Jason Darwin
  */
 
-namespace boboldehampsink\tagmanager;
+namespace nzmebooks\tagmanager;
 
-use boboldehampsink\tagmanager\elements\TagManagerElementType;
-use boboldehampsink\tagmanager\services\TagManagerService;
-use boboldehampsink\tagmanager\variables\TagManagerVariable;
+use nzmebooks\tagmanager\elements\TagManagerElementType;
+use nzmebooks\tagmanager\services\TagManagerService;
+use nzmebooks\tagmanager\variables\TagManagerVariable;
 
 use Craft;
 use craft\base\Plugin;
@@ -29,7 +29,7 @@ use yii\base\Event;
 /**
  * Class TagManager
  *
- * @author    Bob Olde Hampsink
+ * @author    Jason Darwin
  * @package   TagManager
  * @since     2.0.0
  *

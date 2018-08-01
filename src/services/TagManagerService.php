@@ -3,16 +3,16 @@
 /**
  * Tag Manager Service.
  *
- * @author    Bob Olde Hampsink <b.oldehampsink@itmundi.nl>
- * @copyright Copyright (c) 2015, Bob Olde Hampsink
+ * @author    Jason Darwin <b.oldehampsink@itmundi.nl>
+ * @copyright Copyright (c) 2015, Jason Darwin
  * @license   http://buildwithcraft.com/license Craft License Agreement
  *
- * @link      http://github.com/boboldehampsink
+ * @link      http://github.com/nzmebooks
  */
 
-namespace boboldehampsink\tagmanager\services;
+namespace nzmebooks\tagmanager\services;
 
-use boboldehampsink\tagmanager\TagManager;
+use nzmebooks\tagmanager\TagManager;
 
 use Craft;
 use craft\base\Component;
