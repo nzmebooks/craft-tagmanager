@@ -179,8 +179,6 @@ class DefaultController extends Controller
         }
 
         if ($request->getBodyParam('redirect')) {
-            return $this->redirect($request->getBodyParam('redirect'));
-        } else {
             return $this->redirectToPostedUrl();
         }
     }
@@ -198,8 +196,6 @@ class DefaultController extends Controller
             Craft::$app->getSession()->setNotice(Craft::t('tagmanager', 'Tag deleted.'));
 
             if ($request->getBodyParam('redirect')) {
-                return $this->redirect($request->getBodyParam('redirect'));
-            } else {
                 return $this->redirectToPostedUrl();
             }
         } else {

@@ -6,12 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 Changelog
 =================
-###0.2.0###
+
+### 1.0.3 - 2019-07-11
+- Treat redirect parameters as hashed: https://docs.craftcms.com/v3/changes-in-craft-3.html#request-params
+
+### 0.2.0
  - Added delete and edit element actions (thanks to joshangell)
  - Added hooks to allow plugins to modify the element index html,
    table attributes and sortable attributes (thanks to joshangell)
  - Only show delete button on existing tags (thanks to joshangell)
  - Removed locale support in the CP edit url (temporarily)
 
-###0.1.0###
+### 0.1.0
  - Initial push to GitHub
