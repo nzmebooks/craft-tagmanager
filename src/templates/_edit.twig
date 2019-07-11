@@ -7,7 +7,7 @@
     <form id="tag-form" method="post" accept-charset="UTF-8" data-saveshortcut="1" data-saveshortcut-redirect="{{ continueEditingUrl }}">
         {{ getCsrfInput() }}
         <input type="hidden" name="action" value="tagmanager/default/save-tag">
-        <input type="hidden" name="redirect" value="tagmanager">
+        <input type="hidden" name="redirect" value="{{ 'tagmanager' | hash }}">
         <input type="hidden" name="groupId" value="{{ group.id }}">
         {% if tag.id %}<input type="hidden" name="tagId" value="{{ tag.id }}">{% endif %}
         {% if craft.isLocalized() %}<input type="hidden" name="locale" value="{{ tag.locale }}">{% endif %}

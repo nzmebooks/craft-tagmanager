@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 Changelog
 =================
 
+### 1.0.4 - 2019-07-11
+- Hash redirect URL
+
 ### 1.0.3 - 2019-07-11
 - Treat redirect parameters as hashed: https://docs.craftcms.com/v3/changes-in-craft-3.html#request-params
 
