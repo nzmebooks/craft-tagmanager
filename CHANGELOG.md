@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 Changelog
 =================
 
+### 1.0.5 - 2020-03-28
+- Correct TagManagerElementType to TagManagerElement
+
 ### 1.0.4 - 2019-07-11
 - Hash redirect URL
 

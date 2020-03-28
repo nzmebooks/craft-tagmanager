@@ -10,7 +10,7 @@
 
 namespace nzmebooks\tagmanager;
 
-use nzmebooks\tagmanager\elements\TagManagerElementType;
+use nzmebooks\tagmanager\elements\TagManagerElement;
 use nzmebooks\tagmanager\services\TagManagerService;
 use nzmebooks\tagmanager\variables\TagManagerVariable;
 
@@ -99,13 +99,13 @@ class TagManager extends Plugin
             }
         );
 
-        Event::on(
-            Elements::class,
-            Elements::EVENT_REGISTER_ELEMENT_TYPES,
-            function (RegisterComponentTypesEvent $event) {
-                $event->types[] = TagManagerElementType::class;
-            }
-        );
+        // Event::on(
+        //     Elements::class,
+        //     Elements::EVENT_REGISTER_ELEMENT_TYPES,
+        //     function (RegisterComponentTypesEvent $event) {
+        //         $event->types[] = TagManagerElementType::class;
+        //     }
+        // );
 
         Craft::info(
             Craft::t(
