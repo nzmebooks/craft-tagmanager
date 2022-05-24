@@ -34,7 +34,7 @@ class TagManagerElement extends Tag
      *
      * @return string|false
      */
-    public function getCpEditUrl()
+    public function getCpEditUrl(): ?string
     {
         $group = $this->getGroup();
 
