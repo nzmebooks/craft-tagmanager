@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 Changelog
 =================
 
+### 2.0.1 - 2020-08-30
+- Replace deprecated getCsrfInput() with csrfInput()
+
+### 2.0.0 - 2020-05-24
+- Upgrade for Craft CMS 4
+
 ### 1.0.6 - 2020-03-28
 - Correct TagManagerElementType to TagManagerElement
 
