@@ -20,7 +20,7 @@ use craft\db\Query;
 
 class TagManagerService extends Component
 {
-    public function getCpTrigger()
+    public function cpTrigger()
     {
         return Craft::$app->config->general->cpTrigger;
     }

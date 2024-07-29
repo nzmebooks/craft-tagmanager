@@ -115,7 +115,7 @@ class DefaultController extends Controller
             // Do any of the fields on this tab have errors?
             $hasErrors = false;
             if ($variables['tag']->hasErrors()) {
-                foreach ($tab->getFields() as $field) {
+                foreach ($tab->getElements() as $field) {
                     if ($variables['tag']->getErrors($field->getField()->handle)) {
                         $hasErrors = true;
                         break;
