@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 Changelog
 =================
 
+### 2.0.2 - 2024-07-29
+- Update for Craft CMS 4
+
 ### 2.0.1 - 2020-08-30
 - Replace deprecated getCsrfInput() with csrfInput()
 

@@ -10,7 +10,7 @@
         <input type="hidden" name="redirect" value="{{ 'tagmanager' | hash }}">
         <input type="hidden" name="groupId" value="{{ group.id }}">
         {% if tag.id %}<input type="hidden" name="tagId" value="{{ tag.id }}">{% endif %}
-        {% if craft.isLocalized() %}<input type="hidden" name="locale" value="{{ tag.locale }}">{% endif %}
+        {% if craft.app.isMultiSite() %}<input type="hidden" name="locale" value="{{ tag.locale }}">{% endif %}
 
         {{ forms.textField({
             label: "Title"|t,

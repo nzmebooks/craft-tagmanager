@@ -28,6 +28,15 @@ class TagManagerVariable
     }
 
     /**
+     * @method getCpTrigger
+     * @return string
+     */
+    public function getCpTrigger()
+    {
+        return TagManager::$plugin->tagManagerService->cpTrigger();
+    }
+
+    /**
      * @method getTagCount
      * @return array
      */

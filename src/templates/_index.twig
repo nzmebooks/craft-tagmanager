@@ -2,10 +2,11 @@
 
 {% set title = craft.tagManager.getPluginName %}
 {% set tags = craft.tagManager.getTags %}
+{% set cpTrigger = craft.tagManager.getCpTrigger %}
 
 {% set content %}
     <h2 class="left">Tags currently in use</h2>
-    <a class="right" href="/admin/tagmanager/tags">List tags</a>
+    <a class="right" href="/{{ cpTrigger }}/tagmanager/tags">List tags</a>
     <div>
         {% if tags | length %}
             <table id="test" class="data fullwidth">
@@ -18,10 +19,10 @@
                     {% for tag in tags %}
                     <tr>
                         <td>{{ tag.groupName }}</td>
-                        <td><a href="/admin/tagmanager/{{ tag.groupHandle }}/{{ tag.id }}">{{ tag.title }}</a></td>
+                        <td><a href="/{{ cpTrigger }}/tagmanager/{{ tag.groupHandle }}/{{ tag.id }}">{{ tag.title }}</a></td>
                         <td>
                             {% for entry in tag.entries %}
-                                <p><a href="/admin/entries/{{ entry.entrySection }}/{{ entry.entryId }}">{{ entry.entryTitle }}</a></p>
+                                <p><a href="/{{ cpTrigger }}/entries/{{ entry.entrySection }}/{{ entry.entryId }}">{{ entry.entryTitle }}</a></p>
                             {% endfor %}
                         </td>
                     </tr>
