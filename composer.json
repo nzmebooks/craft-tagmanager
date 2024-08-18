@@ -2,7 +2,7 @@
     "name": "nzmebooks/craft-tagmanager",
     "description": "Plugin that allows you to edit and delete tags.",
     "type": "craft-plugin",
-    "version": "2.0.3",
+    "version": "3.0.0",
     "keywords": [
         "craft",
         "cms",
@@ -23,8 +23,8 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^4.0.0-alpha.1",
-        "php": "^8.0.2"
+        "craftcms/cms": "^5.0.0-beta.1",
+        "php": "^8.2"
     },
     "autoload": {
         "psr-4": {

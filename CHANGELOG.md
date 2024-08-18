@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 Changelog
 =================
 
+### 3.0.0 - 2024-08-18
+- Upgrade to Craft 5
+
 ### 2.0.3 - 2024-07-29
 - Fix for Craft CMS 4
 
