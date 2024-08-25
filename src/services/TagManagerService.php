@@ -29,25 +29,25 @@ class TagManagerService extends Component
     {
         $query = (new Query())
             ->select('
-                tags.id                   AS id,
-                contentEntries.elementId  AS elementId,
-                taggroups.name            AS groupName,
-                taggroups.handle          AS groupHandle,
-                content.title             AS title,
-                content.dateCreated       AS dateCreated,
-                content.dateUpdated       AS dateUpdated,
-                entries.id                AS entryId,
-                contentEntries.title      AS entryTitle,
-                sectionsEntries.handle    AS entrySection
+                tags.id                     AS id,
+                contentEntries.elementId    AS elementId,
+                taggroups.name              AS groupName,
+                taggroups.handle            AS groupHandle,
+                elements_sites.title        AS title,
+                elements_sites.dateCreated  AS dateCreated,
+                elements_sites.dateUpdated  AS dateUpdated,
+                entries.id                  AS entryId,
+                contentEntries.title        AS entryTitle,
+                sectionsEntries.handle      AS entrySection
             ')
-            ->from('content')
-            ->join('JOIN', 'tags          AS tags',            'content.elementId   = tags.id')
-            ->join('JOIN', 'taggroups     AS taggroups',       'tags.groupId        = taggroups.id')
-            ->leftjoin('relations         AS relations',       'tags.id             = relations.targetId')
-            ->leftJoin('entries           AS entries',         'entries.id          = relations.sourceId')
-            ->join('JOIN', 'sections      AS sectionsEntries', 'entries.sectionId   = sectionsEntries.id')
-            ->join('JOIN', 'entryversions AS entryversions', 'entryversions.entryId = entries.id')
-            ->join('JOIN', 'content       AS contentEntries',  'entries.id          = contentEntries.elementId')
+            ->from('elements_sites')
+            ->join('JOIN', 'tags           AS tags',            'elements_sites.elementId = tags.id')
+            ->join('JOIN', 'taggroups      AS taggroups',       'tags.groupId             = taggroups.id')
+            ->leftjoin('relations          AS relations',       'tags.id                  = relations.targetId')
+            ->leftJoin('entries            AS entries',         'entries.id               = relations.sourceId')
+            ->join('JOIN', 'sections       AS sectionsEntries', 'entries.sectionId        = sectionsEntries.id')
+            ->join('JOIN', 'entryversions  AS entryversions',   'entryversions.entryId    = entries.id')
+            ->join('JOIN', 'elements_sites AS contentEntries',  'entries.id               = contentEntries.elementId')
             ->groupBy('id, elementId')
             ->orderBy('title, entryTitle');
 
@@ -121,14 +121,14 @@ class TagManagerService extends Component
         $query = (new Query())
             ->select('
                 tags.id,
-                content.title,
+                elements_sites.title,
                 count(tags.id) AS count
             ')
             ->from('tags')
-            ->join('JOIN', 'relations AS relations', 'tags.id           = relations.targetId')
-            ->join('JOIN', 'content   AS content', 'content.elementId = tags.id')
+            ->join('JOIN', 'relations      AS relations',      'tags.id                  = relations.targetId')
+            ->join('JOIN', 'elements_sites AS elements_sites', 'elements_sites.elementId = tags.id')
             ->where(['in', 'tags.id', $tagIds])
-            ->groupBy('tags.id, content.title');
+            ->groupBy('tags.id, elements_sites.title');
 
         $records = $query->all();
 

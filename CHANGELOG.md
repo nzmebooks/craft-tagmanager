@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 Changelog
 =================
 
+## 3.0.1 - 2024-08-18
+### Modified
+- Ensure Tag Mananger shows content now that content has been migrated to elements_sites
+
 ### 3.0.0 - 2024-08-18
 - Upgrade to Craft 5
 
